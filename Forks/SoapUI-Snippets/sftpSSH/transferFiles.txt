@@ -1,0 +1,52 @@
+import com.jcraft.jsch.*
+
+java.util.Properties config = new java.util.Properties()
+config.put "StrictHostKeyChecking", "no"
+
+def SFTPPassword = context.expand( '${#TestSuite#SFTPPassword}' )
+def SFTPUser = context.expand( '${#TestSuite#SFTPUser}' )
+def SFTPHost = context.expand( '${#TestSuite#SFTPHost}' )
+
+def testDataFile1 = context.expand( '${#TestSuite#TestDataFile1}' )
+def testDataFile2 = context.expand( '${#TestSuite#TestDataFile2}' )
+def testDataFile3 = context.expand( '${#TestSuite#TestDataFile3}' )
+def testDataFile4 = context.expand( '${#TestSuite#TestDataFile4}' )
+def testDataFile5 = context.expand( '${#TestSuite#TestDataFile5}' )
+
+def SFTPHomeDir = context.expand( '${#TestSuite#SFTPHomeDir}' )
+def SFTPDataDir = context.expand( '${#TestSuite#SFTPDataDir}' )
+def SFTPArchDir = context.expand( '${#TestSuite#SFTPArchDir}' )
+
+def projectDir = context.expand( '${projectDir}' )
+
+JSch ssh = new JSch()
+Session sess = ssh.getSession SFTPUser, SFTPHost, 22
+sess.with {
+	setConfig config
+	setPassword SFTPPassword
+	connect()
+	Channel chan = openChannel "sftp"
+	chan.connect()
+	
+	ChannelSftp sftp = (ChannelSftp) chan;
+
+	//creating new csv files and moving them to SFTP
+	def sessionsFile = new File(projectDir+'/data/zoom/'+testDataFile1)
+	sessionsFile.withInputStream { istream -> sftp.put(istream, SFTPHomeDir + SFTPDataDir + '/' + testDataFile1) }
+	
+	sessionsFile = new File(projectDir+'/data/zoom/'+testDataFile2)
+	sessionsFile.withInputStream { istream -> sftp.put(istream, SFTPHomeDir + SFTPDataDir + '/' + testDataFile2) }
+	
+	sessionsFile = new File(projectDir+'/data/zoom/'+testDataFile3)
+	sessionsFile.withInputStream { istream -> sftp.put(istream, SFTPHomeDir + SFTPDataDir + '/' + testDataFile3) }
+	
+	sessionsFile = new File(projectDir+'/data/zoom/'+testDataFile4)
+	sessionsFile.withInputStream { istream -> sftp.put(istream, SFTPHomeDir + SFTPDataDir + '/' + testDataFile4) }
+	
+	sessionsFile = new File(projectDir+'/data/zoom/'+testDataFile5)
+	sessionsFile.withInputStream { istream -> sftp.put(istream, SFTPHomeDir + SFTPDataDir + '/' + testDataFile5) }
+	//==================================
+	
+	chan.disconnect()
+	disconnect()
+}

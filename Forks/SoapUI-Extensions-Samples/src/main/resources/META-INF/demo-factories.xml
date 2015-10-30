@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<soapui-factories>
+    <factory id="XPathCount" factoryType="com.eviware.soapui.impl.wsdl.teststeps.assertions.TestAssertionFactory" factoryClass=""/>
+    <!--<factory id="..." factoryType="..." factoryClass="..."/>-->
+</soapui-factories>

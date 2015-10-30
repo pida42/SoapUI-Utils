@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:soapui-actions xmlns:tns="http://eviware.com/soapui/config">
+
+    <tns:action id="NickDemoAction" actionClass="org.klauer.soapui.demo.action.DemoAction"/>
+
+    <tns:actionGroup id="EnabledWsdlProjectActions">
+        <tns:actionMapping actionId="NickDemoAction" position="AFTER" positionRef="AddWadlAction"/>
+    </tns:actionGroup>
+
+</tns:soapui-actions>

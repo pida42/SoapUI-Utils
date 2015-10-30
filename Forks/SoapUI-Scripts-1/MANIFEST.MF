@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.9.1
+Created-By: 1.7.0_45-b18 (Oracle Corporation)
+Built-By: daswath
+Bundle-Name: SoapUIScripts
+Bundle-Version: 0.3
+Bundle-Date: 2015-08-07 14:39:55 PDT
+Implementation-Title: SoapUIScripts
+Implementation-Version: 0.3
+
